@@ -139,3 +139,77 @@ criar/colar o arquivos `src/eslint.config.ts` para raiz do projeto laravel
     ]
 }
 ```
+---
+
+---
+# Instalação do Laravel Rector (OPCIONAL)
+
+- Instalação conforme [documentação](https://github.com/rectorphp/rector)
+- instalação do pacote rector-laravel conforme [documentação](https://github.com/driftingly/rector-laravel)
+
+```
+criar/colar o arquivo `src/rector.php` na raiz do projeto
+```
+---
+
+---
+# Instalação do Laravel Pint (OPCIONAL)
+
+- Instalação conforme [documentação](https://laravel.com/docs/12.x/pint)
+
+```
+criar/colar o arquivo `src/pint.php` na raiz do projeto
+```
+---
+
+---
+# Instalação do Laravel LaraStan (OPCIONAL)
+
+- Instalação conforme [documentação](https://github.com/larastan/larastan)
+- Documentação sobre os níveis [documentação](https://phpstan.org/user-guide/rule-levels)
+
+```
+criar/colar o arquivo `src/phpstan.neon` na raiz do projeto
+```
+```
+// comando para Executação:
+./vendor/bin/phpstan analyse --memory-limit=2G
+```
+# Script de QA (composer.json)
+
+```
+//Scripts Individuais de Análise:
+
+"rector:analyse": [
+    "vendor/bin/rector process --dry-run || true"
+],
+"pint:analyse": [
+    "vendor/bin/pint --test || true"
+],
+"larastan": [
+    "vendor/bin/phpstan analyse --memory-limit=2G"
+]
+```
+```
+// Scripts Individuais de Execução:
+
+"rector:execute": [
+    "vendor/bin/rector process || true"
+],
+"pint:execute": [
+    "vendor/bin/pint || true"
+]
+```
+```
+// Script de QA:
+
+"analyse": [
+    "@rector:analyse",
+    "@pint:analyse",
+    "@larastan"
+],
+"qa": [
+    "@rector:execute",
+    "@pint:execute"
+]
+```
